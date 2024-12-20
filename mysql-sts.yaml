@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: mysql-std
+  labels:
+    app: mysql
+    type: standalone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      type: standalone
+  serviceName: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+        type: standalone
+    spec:
+      # nodeSelector:
+      #   app: database
+      containers:
+      - name: mysql
+        image: mysql:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: server
+          containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "mysql123"
+        - name: MYSQL_DATABASE
+          value: "app"
+        - name: MYSQL_USER
+          value: "albert"
+        - name: MYSQL_PASSWORD
+          value: "albert1122"
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+      #  - name: mysql-conf
+      #    mountPath: /etc/mysql/my.cnf
+      #    subPath: my.cnf
+      #  - name: log
+      #    mountPath: /var/log/mysqld.log
+        resources:
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+          requests:
+            memory: "512Mi"
+            cpu: "1"
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        app: mysql
+        type: standalone
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: managed-nfs-storage
+      resources:
+        requests:
+          storage: 5Gi

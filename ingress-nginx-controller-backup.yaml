@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"controller","app.kubernetes.io/instance":"ingress-nginx","app.kubernetes.io/name":"ingress-nginx","app.kubernetes.io/part-of":"ingress-nginx","app.kubernetes.io/version":"1.11.0"},"name":"ingress-nginx-controller","namespace":"ingress-nginx"},"spec":{"externalTrafficPolicy":"Local","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"appProtocol":"http","name":"http","port":80,"protocol":"TCP","targetPort":"http"},{"appProtocol":"https","name":"https","port":443,"protocol":"TCP","targetPort":"https"}],"selector":{"app.kubernetes.io/component":"controller","app.kubernetes.io/instance":"ingress-nginx","app.kubernetes.io/name":"ingress-nginx"},"type":"LoadBalancer"}}
+  creationTimestamp: "2024-07-16T02:16:24Z"
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/version: 1.11.0
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  resourceVersion: "3388"
+  uid: e3efb135-3aaf-4bd7-8e54-5d512b6278f2
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.99.76.242
+  clusterIPs:
+  - 10.99.76.242
+  externalTrafficPolicy: Local
+  healthCheckNodePort: 30955
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - appProtocol: http
+    name: http
+    nodePort: 30427
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - appProtocol: https
+    name: https
+    nodePort: 31264
+    port: 443
+    protocol: TCP
+    targetPort: https
+  selector:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

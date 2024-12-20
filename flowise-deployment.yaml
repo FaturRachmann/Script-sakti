@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flowise
+  namespace: flowise
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flowise
+  template:
+    metadata:
+      labels:
+        app: flowise
+    spec:
+      containers:
+        - name: flowise
+          image: elestio/flowiseai
+          ports:
+            - containerPort: 80
+          env:
+            - name: NODE_ENV
+              value: "production"
+          volumeMounts:
+            - name: flowise-data
+              mountPath: /data
+      volumes:
+        - name: flowise-data
+          persistentVolumeClaim:
+            claimName: flowise-pvc

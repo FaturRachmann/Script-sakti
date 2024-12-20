@@ -1,0 +1,15 @@
+project: # Project custom values
+  atlasProjectName: "My Project"
+  projectIpAccessList:
+    - cidrBlock: "0.0.0.0/0"
+users: # Custom database users
+  - username: dbadmin
+    databaseName: admin
+    roles:
+      - databaseName: admin-role
+        roleName: dbAdmin
+  - username: dbuser
+    databaseName: admin
+    roles:
+      - databaseName: user-role
+        roleName: readWrite
